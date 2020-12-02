@@ -166,12 +166,14 @@ namespace Heist_2
                 SecurityGuardScore = new Random().Next(0, 101),
                 CashOnHand = new Random().Next(50000, 1000001)
             };
+
             Dictionary<string, int> scores = new Dictionary<string, int>()
             {
                 { "Alarm", newBank.AlarmScore },
                 { "Vault", newBank.VaultScore },
                 { "Security Guard", newBank.SecurityGuardScore }
             };
+
             int count = 0;
             foreach (KeyValuePair<string, int> score in scores.OrderByDescending(key => key.Value))
             {
@@ -182,7 +184,6 @@ namespace Heist_2
                 if (count == 2)
                 {
                     Console.WriteLine($"Least secure: {score.Key}");
-
                 }
                 count = count + 1;
             }
