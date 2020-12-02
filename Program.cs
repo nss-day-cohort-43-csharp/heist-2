@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Heist_2
 {
@@ -46,21 +47,20 @@ namespace Heist_2
                     PercentageCut = 10,
                 }
             };
-            
 
-            while(true)
+            while (true)
             {
 
                 Console.WriteLine(rolodex.Count);
                 Console.Write("Enter crew member's name: ");
                 string name = Console.ReadLine();
-                if(name == "")
+                if (name == "")
                 {
                     break;
                 }
 
                 int speciality = 0;
-                while(true)
+                while (true)
                 {
                     Console.WriteLine(@"
 1. Hacker (Disables alarms)
@@ -70,61 +70,61 @@ namespace Heist_2
                     try
                     {
                         speciality = int.Parse(Console.ReadLine());
-                        if(speciality > 0 && speciality < 4)
+                        if (speciality > 0 && speciality < 4)
                         {
 
                             break;
                         }
-                    
+
                     }
-                    catch 
+                    catch
                     {
                         Console.WriteLine("Enter a number 1-3");
                     }
-                
+
                 }
 
                 int skill = 0;
-                while(true)
+                while (true)
                 {
                     Console.Write("Enter crew member's skill (1-100): ");
                     try
                     {
                         skill = int.Parse(Console.ReadLine());
-                        if(skill > 0 && skill <= 100)
+                        if (skill > 0 && skill <= 100)
                         {
                             break;
                         }
-                    
+
                     }
-                    catch 
+                    catch
                     {
                         Console.WriteLine("Enter a number 1-100");
                     }
-                
+
                 }
 
                 int percent = 0;
-                while(true)
+                while (true)
                 {
                     Console.Write("Enter crew member's percentage cut (1-100): ");
                     try
                     {
                         percent = int.Parse(Console.ReadLine());
-                        if(percent > 0 && percent <= 100)
+                        if (percent > 0 && percent <= 100)
                         {
                             break;
                         }
-                    
+
                     }
-                    catch 
+                    catch
                     {
                         Console.WriteLine("Enter a number 1-100");
                     }
-                
+
                 }
-        
-                switch(speciality)
+
+                switch (speciality)
                 {
                     case 1:
                         var Hacker = new Hacker
@@ -155,6 +155,38 @@ namespace Heist_2
                         break;
                 }
             }
+            Bank bankToRob = BankForHeist();
+        }
+        static Bank BankForHeist()
+        {
+            Bank newBank = new Bank()
+            {
+                AlarmScore = new Random().Next(0, 101),
+                VaultScore = new Random().Next(0, 101),
+                SecurityGuardScore = new Random().Next(0, 101)
+            };
+            Dictionary<string, int> scores = new Dictionary<string, int>()
+            {
+                { "Alarm", newBank.AlarmScore },
+                { "Vault", newBank.VaultScore },
+                { "Security Guard", newBank.SecurityGuardScore }
+            };
+            int count = 0;
+            foreach (KeyValuePair<string, int> score in scores.OrderByDescending(key => key.Value))
+            {
+                if (count == 0)
+                {
+                    Console.WriteLine($"Most secure: {score.Key}");
+                }
+                if (count == 2)
+                {
+                    Console.WriteLine($"Least secure: {score.Key}");
+
+                }
+                count = count + 1;
+            }
+
+            return newBank;
         }
     }
 }
