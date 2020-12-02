@@ -11,6 +11,49 @@ namespace Heist_2
             List<IRobber> rolodex = GetRobbers();
             Bank bankToRob = BankForHeist();
             Rolodex.Print(rolodex);
+            List<IRobber> crew = new List<IRobber>();
+            int percentage = 90;
+            while (true)
+            {
+                Console.WriteLine($"Percentage left for crew members: {percentage}");
+                Console.WriteLine("------------------");
+                Console.Write("Select a member for your crew: ");
+                string input = Console.ReadLine();
+                if (input == "")
+                {
+                    break;
+                }
+                try
+                {
+                    int choice = int.Parse(input);
+                    if (choice < rolodex.Count && choice >= 0)
+                    {
+                        IRobber newMember = Rolodex.SelectMember(rolodex, choice);
+                        percentage = percentage - newMember.PercentageCut;
+                        if (percentage >= 0)
+                        {
+                            crew.Add(newMember);
+                            rolodex.RemoveAt(choice);
+                        }
+                        else
+                        {
+                            percentage = percentage + newMember.PercentageCut;
+                            Console.WriteLine("Percent cut can't be met for that crew member");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Enter a valid index number");
+                        Console.WriteLine("------------------");
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("Enter a valid index number");
+                    Console.WriteLine("------------------");
+                }
+                Rolodex.Print(rolodex);
+            }
         }
         static Bank BankForHeist()
         {
