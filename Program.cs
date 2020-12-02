@@ -10,6 +10,7 @@ namespace Heist_2
         {
             List<IRobber> rolodex = GetRobbers();
             Bank bankToRob = BankForHeist();
+            Rolodex.Print(rolodex);
         }
         static Bank BankForHeist()
         {
