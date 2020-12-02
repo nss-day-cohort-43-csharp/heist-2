@@ -9,6 +9,8 @@ namespace Heist_2
         string name { get; set; }
         public static void Print(List<IRobber> rolodex)
         {
+            Console.WriteLine("Current contacts");
+            Console.WriteLine("------------------");
             int count = 0;
             foreach (var crew in rolodex)
             {
@@ -23,9 +25,9 @@ namespace Heist_2
         }
         public static IRobber SelectMember(List<IRobber> rolodex, int index)
         {
-            
+
             return rolodex.ElementAt(index);
-            
+
         }
     }
 }
