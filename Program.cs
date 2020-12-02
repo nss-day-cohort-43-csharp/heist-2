@@ -163,7 +163,8 @@ namespace Heist_2
             {
                 AlarmScore = new Random().Next(0, 101),
                 VaultScore = new Random().Next(0, 101),
-                SecurityGuardScore = new Random().Next(0, 101)
+                SecurityGuardScore = new Random().Next(0, 101),
+                CashOnHand = new Random().Next(50000, 1000001)
             };
             Dictionary<string, int> scores = new Dictionary<string, int>()
             {
@@ -185,7 +186,6 @@ namespace Heist_2
                 }
                 count = count + 1;
             }
-            newBank.CashOnHand = new Random().Next(50000, 1000001);
 
             return newBank;
         }
