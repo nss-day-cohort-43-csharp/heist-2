@@ -16,6 +16,7 @@ namespace Heist_2
            if(bank.SecurityGuardScore <= 0)
            {
                Console.WriteLine($"{Name} has expired the security guard!");
+               Console.WriteLine("-------------------");
            }
       
         }

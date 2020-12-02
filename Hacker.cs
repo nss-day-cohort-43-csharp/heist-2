@@ -15,7 +15,8 @@ namespace Heist_2
            bank.AlarmScore = bank.AlarmScore - SkillLevel;
            if(bank.AlarmScore <= 0)
            {
-               Console.WriteLine($"{Name} has disabled the alarm system!");
+                Console.WriteLine($"{Name} has disabled the alarm system!");
+                Console.WriteLine("-------------------");
            }
       
         }
