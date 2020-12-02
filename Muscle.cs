@@ -12,8 +12,8 @@ namespace Heist_2
         public void PerformSkill(Bank bank)
         {
            Console.WriteLine($"{Name} is beating up the security guard. Decreased security {SkillLevel} points!");
-           int kill = bank.SecurityGuardScore - SkillLevel;
-           if(kill <= 0)
+           bank.SecurityGuardScore = bank.SecurityGuardScore - SkillLevel;
+           if(bank.SecurityGuardScore <= 0)
            {
                Console.WriteLine($"{Name} has expired the security guard!");
            }

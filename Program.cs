@@ -54,6 +54,24 @@ namespace Heist_2
                 }
                 Rolodex.Print(rolodex);
             }
+
+            crew.ForEach(member => member.PerformSkill(bankToRob));
+            if(!bankToRob.IsSecure)
+            {
+                Console.WriteLine("Heist was a success!!!");
+                int ourCut = bankToRob.CashOnHand;
+                foreach (IRobber member in crew)
+                {
+
+                    Console.WriteLine($"{member.Name} gets: ${bankToRob.CashOnHand / member.PercentageCut}");
+                    ourCut = ourCut - (bankToRob.CashOnHand / member.PercentageCut);
+                }
+                Console.WriteLine($"You get ${ourCut}");
+            }
+            else
+            {
+                Console.WriteLine("Your crew is locked up!!! **FAILURE**");
+            }
         }
         static Bank BankForHeist()
         {
