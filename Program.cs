@@ -185,6 +185,7 @@ namespace Heist_2
                 }
                 count = count + 1;
             }
+            newBank.CashOnHand = new Random().Next(50000, 1000001);
 
             return newBank;
         }
