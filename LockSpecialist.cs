@@ -16,6 +16,7 @@ namespace Heist_2
            if(bank.VaultScore <= 0)
            {
                Console.WriteLine($"{Name} has unlocked the vault!");
+               Console.WriteLine("-------------------");
            }
       
         }

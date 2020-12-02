@@ -58,18 +58,22 @@ namespace Heist_2
             crew.ForEach(member => member.PerformSkill(bankToRob));
             if(!bankToRob.IsSecure)
             {
+                Console.WriteLine("-------------------");
                 Console.WriteLine("Heist was a success!!!");
+                Console.WriteLine("-------------------");
                 int ourCut = bankToRob.CashOnHand;
                 foreach (IRobber member in crew)
                 {
 
                     Console.WriteLine($"{member.Name} gets: ${bankToRob.CashOnHand / member.PercentageCut}");
+                    Console.WriteLine("-------------------");
                     ourCut = ourCut - (bankToRob.CashOnHand / member.PercentageCut);
                 }
                 Console.WriteLine($"You get ${ourCut}");
             }
             else
             {
+                Console.WriteLine("-------------------");
                 Console.WriteLine("Your crew is locked up!!! **FAILURE**");
             }
         }
