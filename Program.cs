@@ -8,7 +8,45 @@ namespace Heist_2
     {
         static void Main(string[] args)
         {
-            List<IRobber> rolodex = new List<IRobber>()
+            List<IRobber> rolodex = GetRobbers();
+            Bank bankToRob = BankForHeist();
+        }
+        static Bank BankForHeist()
+        {
+            Bank newBank = new Bank()
+            {
+                AlarmScore = new Random().Next(0, 101),
+                VaultScore = new Random().Next(0, 101),
+                SecurityGuardScore = new Random().Next(0, 101),
+                CashOnHand = new Random().Next(50000, 1000001)
+            };
+
+            Dictionary<string, int> scores = new Dictionary<string, int>()
+            {
+                { "Alarm", newBank.AlarmScore },
+                { "Vault", newBank.VaultScore },
+                { "Security Guard", newBank.SecurityGuardScore }
+            };
+
+            int count = 0;
+            foreach (KeyValuePair<string, int> score in scores.OrderByDescending(key => key.Value))
+            {
+                if (count == 0)
+                {
+                    Console.WriteLine($"Most secure: {score.Key}");
+                }
+                if (count == 2)
+                {
+                    Console.WriteLine($"Least secure: {score.Key}");
+                }
+                count = count + 1;
+            }
+
+            return newBank;
+        }
+        static List<IRobber> GetRobbers()
+        {
+            List<IRobber> operatives = new List<IRobber>()
             {
                 new Hacker
                 {
@@ -51,7 +89,7 @@ namespace Heist_2
             while (true)
             {
 
-                Console.WriteLine(rolodex.Count);
+                Console.WriteLine(operatives.Count);
                 Console.Write("Enter crew member's name: ");
                 string name = Console.ReadLine();
                 if (name == "")
@@ -133,7 +171,7 @@ namespace Heist_2
                             SkillLevel = skill,
                             PercentageCut = percent
                         };
-                        rolodex.Add(Hacker);
+                        operatives.Add(Hacker);
                         break;
                     case 2:
                         var Muscle = new Muscle
@@ -142,7 +180,7 @@ namespace Heist_2
                             SkillLevel = skill,
                             PercentageCut = percent
                         };
-                        rolodex.Add(Muscle);
+                        operatives.Add(Muscle);
                         break;
                     case 3:
                         var LockSpecialist = new LockSpecialist
@@ -151,44 +189,11 @@ namespace Heist_2
                             SkillLevel = skill,
                             PercentageCut = percent
                         };
-                        rolodex.Add(LockSpecialist);
+                        operatives.Add(LockSpecialist);
                         break;
                 }
             }
-            Bank bankToRob = BankForHeist();
-        }
-        static Bank BankForHeist()
-        {
-            Bank newBank = new Bank()
-            {
-                AlarmScore = new Random().Next(0, 101),
-                VaultScore = new Random().Next(0, 101),
-                SecurityGuardScore = new Random().Next(0, 101),
-                CashOnHand = new Random().Next(50000, 1000001)
-            };
-
-            Dictionary<string, int> scores = new Dictionary<string, int>()
-            {
-                { "Alarm", newBank.AlarmScore },
-                { "Vault", newBank.VaultScore },
-                { "Security Guard", newBank.SecurityGuardScore }
-            };
-
-            int count = 0;
-            foreach (KeyValuePair<string, int> score in scores.OrderByDescending(key => key.Value))
-            {
-                if (count == 0)
-                {
-                    Console.WriteLine($"Most secure: {score.Key}");
-                }
-                if (count == 2)
-                {
-                    Console.WriteLine($"Least secure: {score.Key}");
-                }
-                count = count + 1;
-            }
-
-            return newBank;
+            return operatives;
         }
     }
 }
