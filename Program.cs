@@ -12,12 +12,13 @@ namespace Heist_2
             Bank bankToRob = BankForHeist();
             Rolodex.Print(rolodex);
             List<IRobber> crew = new List<IRobber>();
-            int percentage = 90;
+            int percentage = 100;
             while (true)
             {
                 Console.WriteLine($"Percentage left for crew members: {percentage}");
                 Console.WriteLine("------------------");
-                Console.Write("Select a member for your crew: ");
+                Console.Write("Select a member for your crew from current contacts: ");
+                Console.WriteLine("-------------------");
                 string input = Console.ReadLine();
                 if (input == "")
                 {
@@ -56,7 +57,7 @@ namespace Heist_2
             }
 
             crew.ForEach(member => member.PerformSkill(bankToRob));
-            if(!bankToRob.IsSecure)
+            if (!bankToRob.IsSecure)
             {
                 Console.WriteLine("-------------------");
                 Console.WriteLine("Heist was a success!!!");
@@ -65,9 +66,9 @@ namespace Heist_2
                 foreach (IRobber member in crew)
                 {
 
-                    Console.WriteLine($"{member.Name} gets: ${bankToRob.CashOnHand / member.PercentageCut}");
+                    Console.WriteLine($"{member.Name} gets: ${(bankToRob.CashOnHand * member.PercentageCut) / 100}");
                     Console.WriteLine("-------------------");
-                    ourCut = ourCut - (bankToRob.CashOnHand / member.PercentageCut);
+                    ourCut = ourCut - ((bankToRob.CashOnHand * member.PercentageCut) / 100);
                 }
                 Console.WriteLine($"You get ${ourCut}");
             }
@@ -94,6 +95,7 @@ namespace Heist_2
                 { "Security Guard", newBank.SecurityGuardScore }
             };
 
+            Console.WriteLine("Recon report for target bank");
             int count = 0;
             foreach (KeyValuePair<string, int> score in scores.OrderByDescending(key => key.Value))
             {
@@ -107,7 +109,7 @@ namespace Heist_2
                 }
                 count = count + 1;
             }
-
+            Console.WriteLine("------------------");
             return newBank;
         }
         static List<IRobber> GetRobbers()
@@ -154,12 +156,12 @@ namespace Heist_2
 
             while (true)
             {
-
-                Console.WriteLine(operatives.Count);
-                Console.Write("Enter crew member's name: ");
+                Console.WriteLine($"Your contact list has {operatives.Count} entries.");
+                Console.Write("Enter crew member's name to add to contact list: ");
                 string name = Console.ReadLine();
                 if (name == "")
                 {
+                    Console.WriteLine("------------------");
                     break;
                 }
 
@@ -176,7 +178,6 @@ namespace Heist_2
                         speciality = int.Parse(Console.ReadLine());
                         if (speciality > 0 && speciality < 4)
                         {
-
                             break;
                         }
 
@@ -258,6 +259,7 @@ namespace Heist_2
                         operatives.Add(LockSpecialist);
                         break;
                 }
+                Console.WriteLine("------------------");
             }
             return operatives;
         }
